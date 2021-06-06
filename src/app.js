@@ -15,13 +15,13 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/src/', (req, res) => { // `/src` is just a workaround for now
   res.json({
     message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
   });
 });
 
-app.use('/api/v1', api);
+app.use('/src/api/v1', api); // `/src` is just a workaround for now
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

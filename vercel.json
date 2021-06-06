@@ -4,12 +4,20 @@
         {
             "src": "./src/index.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "./src/api/checkSlots.js",
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "/src(.*)",
             "dest": "./src/index.js"
+        },
+        {
+            "src": "/src/api/v1/checkSlots",
+            "dest": "./src/api/checkSlots.js"
         }
     ]
 }

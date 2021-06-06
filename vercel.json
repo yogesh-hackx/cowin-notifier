@@ -12,12 +12,12 @@
     ],
     "routes": [
         {
-            "src": "/src(.*)",
+            "src": "/src/api/v1/checkSlots",
             "dest": "./src/index.js"
         },
         {
-            "src": "/src/api/v1/checkSlots",
-            "dest": "./src/api/checkSlots.js"
+            "src": "/src(.*)",
+            "dest": "./src/index.js"
         }
     ]
 }

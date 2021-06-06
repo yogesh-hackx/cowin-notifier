@@ -2,22 +2,22 @@
     "version": 2,
     "builds": [
         {
-            "src": "./src/index.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "./src/api/checkSlots.js",
-            "use": "@vercel/node"
+            "src": "src/index.js",
+            "use": "@now/node-server"
         }
     ],
     "routes": [
         {
-            "src": "/src/api/v1/checkSlots",
-            "dest": "./src/index.js"
-        },
-        {
-            "src": "/src(.*)",
-            "dest": "./src/index.js"
+            "src": "/(.*)",
+            "dest": "/src/index.js",
+            "methods": [
+                "GET",
+                "POST",
+                "OPTIONS"
+            ],
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
         }
     ]
 }

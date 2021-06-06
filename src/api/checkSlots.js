@@ -23,7 +23,7 @@ const findSlotAndNotify = async (centers, pincode, user) => {
       const doses = session.available_capacity_dose1;
       const centerName = center.name;
 
-      if (session.min_age_limit === 45
+      if (session.min_age_limit === user.minAge
                 && session.available_capacity_dose1 > 0
                 && slotsFound < 5) {
         slotsFound += 1;
@@ -64,7 +64,7 @@ router.get('/', async (req, res) => {
     await sendNotif(item.message, item.user.phone);
   }));
 
-  res.json({message: 'SUCCESS!'});
+  res.json({ message: 'SUCCESS!' });
 });
 
 module.exports = router;

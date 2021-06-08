@@ -24,7 +24,7 @@ const findSlotAndNotify = async (centers, pincode, user) => {
       const centerName = center.name;
 
       if (session.min_age_limit === user.minAge
-                && session.available_capacity_dose1 > 0
+                && session.available_capacity_dose1 > 2 // it'll be too late if put < 2
                 && slotsFound < 5) {
         slotsFound += 1;
         message = message.concat(`${slotsFound}. ${centerName} : (${doses} SLOTS)\n`);

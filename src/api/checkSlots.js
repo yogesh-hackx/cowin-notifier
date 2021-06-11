@@ -3,10 +3,12 @@ const moment = require('moment');
 const subscribers = require('../../data/subscribers');
 const fetchData = require('../../utils/dataFetcher');
 const sendNotif = require('../../utils/notifier');
+const Log = require('../models/log.model');
 
 const router = express.Router();
 
 const TO_SEND = [];
+const CACHE_TIMEOUT = 20;
 
 const findSlotAndNotify = async (centers, pincode, user) => {
   let slotsFound = 0;
@@ -61,7 +63,19 @@ router.get('/', async (req, res) => {
   }));
 
   await Promise.all(TO_SEND.map(async (item) => {
-    await sendNotif(item.message, item.user.phone);
+    const cache = await Log.findOne({ phone: item.user.phone });
+
+    if (cache && moment().diff(moment.unix(cache.time), 'minutes') < CACHE_TIMEOUT) {
+      console.log(moment().diff(moment.unix(cache.time), 'minutes'), 'minutes passed');
+    } else {
+      await Log.findOneAndUpdate(
+        { phone: item.user.phone },
+        { phone: item.user.phone, message: item.message, time: moment().unix() },
+        { upsert: true }
+      );
+      console.log(`\nSending to ${item.user.phone}.\n`);
+      await sendNotif(item.message, item.user.phone);
+    }
   }));
 
   res.json({ message: 'SUCCESS!' });

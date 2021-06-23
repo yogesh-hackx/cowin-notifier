@@ -22,6 +22,12 @@ const subscribers = [
     phone: '+917088398847',
     minAge: 18,
     pincodes: [263622]
+  },
+  {
+    name: 'Reeta',
+    phone: '+918474954613',
+    minAge: 18,
+    pincodes: [262402, 263139]
   }
 ];
 
